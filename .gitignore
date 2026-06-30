@@ -1,0 +1,8 @@
+# Bí mật - KHÔNG đẩy lên GitHub
+*.token
+*.secret
+.tokens.txt
+.env
+.env.*
+.DS_Store
+Thumbs.db
