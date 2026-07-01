@@ -78,6 +78,7 @@ a:hover { text-decoration: underline; }
 
 /* Article */
 .article { padding: 50px 0 40px; }
+.cover-img { display: block; width: 100%; height: auto; border-radius: 14px; margin: 6px 0 30px; box-shadow: var(--shadow); }
 .article .tag { color: var(--accent); font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: .6px; }
 .article h1 {
   font-family: Georgia, serif;

@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" font-family="Georgia, 'Times New Roman', serif">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fbf7f2"/>
+      <stop offset="1" stop-color="#f3e6d8"/>
+    </linearGradient>
+    <linearGradient id="roof" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#b5654a"/>
+      <stop offset="1" stop-color="#8f4537"/>
+    </linearGradient>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f6d9b8"/>
+      <stop offset="1" stop-color="#f0e5d6"/>
+    </linearGradient>
+  </defs>
+
+  <!-- background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <!-- soft accent blob on the right -->
+  <circle cx="930" cy="300" r="320" fill="#efdcc8" opacity="0.55"/>
+  <circle cx="1010" cy="120" r="70" fill="#f6d9b8" opacity="0.8"/>
+
+  <!-- ===== LEFT: text ===== -->
+  <!-- tag -->
+  <g font-family="'Segoe UI', Arial, sans-serif">
+    <rect x="72" y="96" width="16" height="16" rx="3" fill="#b5654a"/>
+    <text x="100" y="110" font-size="21" letter-spacing="3" font-weight="700" fill="#8f4537">BẤT ĐỘNG SẢN DÒNG TIỀN</text>
+  </g>
+
+  <!-- title -->
+  <text x="72" y="215" font-size="58" font-weight="700" fill="#2e2a27">Tôi từng nghĩ</text>
+  <text x="72" y="283" font-size="58" font-weight="700" fill="#2e2a27">bất động sản là</text>
+  <text x="72" y="351" font-size="58" font-weight="700" fill="#b5654a">sân chơi người giàu</text>
+
+  <!-- subline -->
+  <text x="74" y="410" font-size="27" font-style="italic" fill="#6f655d">— và điều đã làm tôi đổi ý.</text>
+
+  <!-- divider -->
+  <rect x="74" y="452" width="120" height="4" rx="2" fill="#b5654a"/>
+
+  <!-- author -->
+  <g font-family="'Segoe UI', Arial, sans-serif">
+    <text x="74" y="500" font-size="27" font-weight="700" fill="#2e2a27">Lưu Thị <tspan fill="#b5654a">Mơ</tspan></text>
+    <text x="74" y="528" font-size="18" fill="#6f655d">Hành trình làm lại cuộc đời từ con số 0</text>
+  </g>
+
+  <!-- ===== RIGHT: illustration ===== -->
+  <g transform="translate(792,150)">
+    <!-- ground -->
+    <ellipse cx="150" cy="300" rx="215" ry="30" fill="#e4d3bf" opacity="0.7"/>
+
+    <!-- house -->
+    <g>
+      <!-- body -->
+      <rect x="70" y="120" width="180" height="160" rx="6" fill="#ffffff" stroke="#ece3d8" stroke-width="2"/>
+      <!-- roof -->
+      <path d="M52 128 L160 44 L268 128 Z" fill="url(#roof)"/>
+      <!-- door -->
+      <rect x="140" y="196" width="46" height="84" rx="4" fill="#b5654a"/>
+      <circle cx="176" cy="240" r="3.5" fill="#f6d9b8"/>
+      <!-- window -->
+      <rect x="92" y="150" width="46" height="46" rx="4" fill="url(#sky)" stroke="#b5654a" stroke-width="2"/>
+      <line x1="115" y1="150" x2="115" y2="196" stroke="#b5654a" stroke-width="2"/>
+      <line x1="92" y1="173" x2="138" y2="173" stroke="#b5654a" stroke-width="2"/>
+      <!-- chimney -->
+      <rect x="222" y="70" width="24" height="46" fill="#8f4537"/>
+    </g>
+
+    <!-- coins + growth (dòng tiền) -->
+    <g transform="translate(-8,232)">
+      <ellipse cx="26" cy="52" rx="42" ry="12" fill="#d99a6c"/>
+      <ellipse cx="26" cy="42" rx="42" ry="12" fill="#e7b183"/>
+      <ellipse cx="26" cy="32" rx="42" ry="12" fill="#d99a6c"/>
+      <ellipse cx="26" cy="22" rx="42" ry="12" fill="#e7b183"/>
+      <text x="26" y="30" font-size="22" font-weight="700" fill="#8f4537" text-anchor="middle" font-family="'Segoe UI', Arial, sans-serif">₫</text>
+      <!-- sprout -->
+      <path d="M26 18 C26 -6 26 -18 26 -30" stroke="#7d9b6f" stroke-width="4" fill="none"/>
+      <path d="M26 -8 C10 -14 2 -30 8 -44 C24 -40 30 -22 26 -8 Z" fill="#8caf79"/>
+      <path d="M26 -18 C42 -24 50 -40 44 -54 C28 -50 22 -32 26 -18 Z" fill="#7d9b6f"/>
+    </g>
+
+    <!-- key -->
+    <g transform="translate(292,196) rotate(28)">
+      <circle cx="0" cy="0" r="17" fill="none" stroke="#c8912f" stroke-width="7"/>
+      <rect x="14" y="-4" width="60" height="8" rx="2" fill="#c8912f"/>
+      <rect x="58" y="4" width="8" height="14" rx="2" fill="#c8912f"/>
+      <rect x="44" y="4" width="8" height="14" rx="2" fill="#c8912f"/>
+    </g>
+
+    <!-- woman silhouette, looking up toward the house -->
+    <g transform="translate(300,150)" fill="#8f4537">
+      <circle cx="30" cy="24" r="16"/>
+      <path d="M30 40 C10 42 6 78 12 118 L20 118 C18 86 22 70 30 68 C38 70 42 86 40 118 L48 118 C54 78 50 42 30 40 Z"/>
+    </g>
+
+    <!-- sun rays / optimism -->
+    <g stroke="#e7b183" stroke-width="4" stroke-linecap="round" opacity="0.8">
+      <line x1="18" y1="30" x2="18" y2="8"/>
+      <line x1="-6" y1="54" x2="-26" y2="46"/>
+      <line x1="0" y1="20" x2="-14" y2="6"/>
+    </g>
+  </g>
+</svg>
