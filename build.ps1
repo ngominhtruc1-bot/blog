@@ -30,9 +30,9 @@ $titles = @{
 # Link nội bộ "Đọc thêm" cho từng bài mới
 $related = @{
  17=@(14,15,10); 18=@(11,3,15); 19=@(12,6,13); 20=@(10,9,7); 21=@(9,8,4)
- 22=@(9,15,7); 23=@(5,14,8); 24=@(13,8,4); 25=@(10,16,1); 26=@(7,6,16)
+ 22=@(9,15,7); 23=@(5,14,8); 24=@(13,8,4); 25=@(10,16,5); 26=@(7,6,16)
  27=@(13,12,19); 28=@(3,9,11); 29=@(8,14,13); 30=@(11,3,18); 31=@(14,24,8)
- 32=@(15,21,22); 33=@(4,8,1); 34=@(15,25,13); 35=@(20,21,33)
+ 32=@(15,21,22); 33=@(4,8,16); 34=@(15,25,13); 35=@(20,21,33)
 }
 
 # Nạp tiêu đề bài mới vào $titles để dựng link nội bộ
@@ -78,6 +78,7 @@ $footer = @'
   <footer class="site-footer">
     <div class="wrap">
       <p>© 2026 Lưu Thị Mơ · Hành trình làm lại cuộc đời từ con số 0</p>
+      <p class="footer-contact">Bạn có câu hỏi hay muốn đồng hành cùng tôi? <a href="mailto:ngominhtruc1@gmail.com?subject=Toi%20muon%20ket%20noi%20voi%20chi%20Mo"><strong>Gửi email cho tôi: ngominhtruc1@gmail.com</strong></a></p>
     </div>
   </footer>
 </body>
