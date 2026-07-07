@@ -46,7 +46,14 @@
       font-size:18px; font-weight:700; padding:16px; border-radius:12px; box-shadow:0 8px 20px rgba(150,80,55,.24);
       transition:transform .15s ease, box-shadow .15s ease; font-family:inherit; }
     .lp-btn:hover{ transform:translateY(-2px); box-shadow:0 12px 26px rgba(150,80,55,.3); }
-    .lp-zalo{ display:block; text-align:center; margin-top:12px; font-size:15px; color:var(--muted); }
+    .lp-or{ text-align:center; color:var(--muted); font-size:14px; margin:18px 0 12px; position:relative; }
+    .lp-or span{ background:var(--surface); padding:0 12px; position:relative; z-index:1; }
+    .lp-or::before{ content:""; position:absolute; left:0; right:0; top:50%; border-top:1px solid var(--line); }
+    .lp-zalo-btn{ display:flex; align-items:center; justify-content:center; gap:9px; width:100%; background:#0068FF; color:#fff !important;
+      font-weight:700; font-size:17px; padding:14px; border-radius:12px; box-shadow:0 8px 20px rgba(0,104,255,.22); transition:transform .15s ease; }
+    .lp-zalo-btn:hover{ transform:translateY(-2px); text-decoration:none; box-shadow:0 12px 26px rgba(0,104,255,.28); }
+    .lp-zalo-btn .zi{ background:#fff; color:#0068FF; font-size:13px; font-weight:800; padding:2px 8px; border-radius:6px; letter-spacing:.3px; }
+    .lp-btn:disabled{ opacity:.7; cursor:default; transform:none; }
     .lp-reassure{ color:var(--muted); font-size:13.5px; text-align:center; margin:14px 0 0; }
     .lp-trust{ background:#fff4ee; border:1px solid var(--line); border-left:4px solid var(--accent); border-radius:6px; padding:16px 22px; color:#5a4a40; font-size:16px; }
     /* Success */
@@ -122,7 +129,10 @@
           </select>
           <button type="submit" class="lp-btn">NHẬN BẢNG GIÁ + ĐẶT LỊCH THAM QUAN</button>
         </form>
-        <span class="lp-zalo">Hoặc nhắn Zalo trực tiếp — em phản hồi trong ngày. 💛</span>
+        <div class="lp-or"><span>hoặc nhắn nhanh qua</span></div>
+        <a class="lp-zalo-btn" href="https://zalo.me/0909441570" target="_blank" rel="noopener"
+           onclick="window.dataLayer&&window.dataLayer.push({event:'zalo_click',lead_type:'thuong-thang-central-park'});">
+           <span class="zi">Zalo</span> Nhắn em: 0909 441 570</a>
         <p class="lp-reassure">Thông tin của anh chị được bảo mật, chỉ dùng để em tư vấn — không chia sẻ cho bên thứ ba.</p>
       </div>
 
@@ -155,21 +165,43 @@
   </footer>
 
   <script>
-    // Email nhận thông báo lead (chị Mơ đổi tại đây nếu cần)
+    // Email nhận lead (chị Mơ đổi tại đây nếu cần). Thu lead qua FormSubmit: gửi ngầm về hộp thư, không cần khách có app mail.
     var LEAD_EMAIL = "luuthimo9191@gmail.com";
-    document.getElementById('leadForm').addEventListener('submit', function(e){
-      e.preventDefault();
-      var ten = document.getElementById('ten').value.trim();
-      var sdt = document.getElementById('sdt').value.trim();
-      var nhucau = document.getElementById('nhucau').value;
-      window.dataLayer && window.dataLayer.push({event:'lead_submit', lead_type:'thuong-thang-central-park', nhu_cau:nhucau});
-      var subject = encodeURIComponent('Lead BĐS - Thường Thắng CP: ' + ten);
-      var body = encodeURIComponent('Họ tên: ' + ten + '\nSĐT/Zalo: ' + sdt + '\nNhu cầu: ' + nhucau + '\nNguồn: trang Thường Thắng Central Park');
-      try { window.open('mailto:' + LEAD_EMAIL + '?subject=' + subject + '&body=' + body, '_blank'); } catch(err){}
+    var FORM_ENDPOINT = "https://formsubmit.co/ajax/" + LEAD_EMAIL;
+    var form = document.getElementById('leadForm');
+    function showSuccess(){
       document.getElementById('formCard').style.display = 'none';
       var s = document.getElementById('successBox');
       s.style.display = 'block';
       s.scrollIntoView({behavior:'smooth', block:'center'});
+    }
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      var ten = document.getElementById('ten').value.trim();
+      var sdt = document.getElementById('sdt').value.trim();
+      var nhucau = document.getElementById('nhucau').value;
+      var btn = form.querySelector('.lp-btn');
+      btn.disabled = true; btn.textContent = 'Đang gửi…';
+      window.dataLayer && window.dataLayer.push({event:'lead_submit', lead_type:'thuong-thang-central-park', nhu_cau:nhucau});
+      fetch(FORM_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({
+          "Họ tên": ten,
+          "SĐT/Zalo": sdt,
+          "Nhu cầu": nhucau,
+          "Nguồn": "Trang Thường Thắng Central Park",
+          _subject: "Lead BĐS - Thường Thắng CP: " + ten,
+          _template: "table",
+          _captcha: "false"
+        })
+      })
+      .then(function(r){ return r.json(); })
+      .then(function(){ showSuccess(); })
+      .catch(function(){
+        try { window.open('mailto:' + LEAD_EMAIL + '?subject=' + encodeURIComponent('Lead BĐS: ' + ten) + '&body=' + encodeURIComponent('Họ tên: ' + ten + '\nSĐT/Zalo: ' + sdt + '\nNhu cầu: ' + nhucau), '_blank'); } catch(err){}
+        showSuccess();
+      });
     });
   </script>
 </body>

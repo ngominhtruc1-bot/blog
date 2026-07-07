@@ -49,6 +49,14 @@
     .lp-success li{ margin-bottom:12px; font-size:16px; color:#3a4a3a; }
     .lp-success li b{ color:var(--ink); }
     .lp-disclaimer{ color:var(--muted); font-size:13.5px; line-height:1.6; margin-top:26px; padding-top:18px; border-top:1px solid var(--line); }
+    .lp-or{ text-align:center; color:var(--muted); font-size:14px; margin:18px 0 12px; position:relative; }
+    .lp-or span{ background:var(--surface); padding:0 12px; position:relative; z-index:1; }
+    .lp-or::before{ content:""; position:absolute; left:0; right:0; top:50%; border-top:1px solid var(--line); }
+    .lp-zalo-btn{ display:flex; align-items:center; justify-content:center; gap:9px; width:100%; background:#0068FF; color:#fff !important;
+      font-weight:700; font-size:17px; padding:14px; border-radius:12px; box-shadow:0 8px 20px rgba(0,104,255,.22); transition:transform .15s ease; }
+    .lp-zalo-btn:hover{ transform:translateY(-2px); text-decoration:none; box-shadow:0 12px 26px rgba(0,104,255,.28); }
+    .lp-zalo-btn .zi{ background:#fff; color:#0068FF; font-size:13px; font-weight:800; padding:2px 8px; border-radius:6px; letter-spacing:.3px; }
+    .lp-btn:disabled{ opacity:.7; cursor:default; transform:none; }
     @media (max-width:600px){ .lp-hero h1{ font-size:28px; } .lp-form-card{ padding:22px 18px; } }
   </style>
 </head>
@@ -120,6 +128,10 @@
           <input type="text" id="lienhe" name="lienhe" placeholder="email@gmail.com hoặc 09xx xxx xxx" required>
           <button type="submit" class="lp-btn">NHẬN CHECKLIST NGAY</button>
         </form>
+        <div class="lp-or"><span>hoặc nhận nhanh qua</span></div>
+        <a class="lp-zalo-btn" href="https://zalo.me/0909441570" target="_blank" rel="noopener"
+           onclick="window.dataLayer&&window.dataLayer.push({event:'zalo_click',lead_type:'checklist-7-buoc'});">
+           <span class="zi">Zalo</span> Nhắn tôi: 0909 441 570</a>
         <p class="lp-reassure">Miễn phí 100%. Tôi sẽ không spam — chỉ gửi những điều thật, và bạn có thể ngừng nhận bất cứ lúc nào. 💛</p>
       </div>
 
@@ -154,23 +166,42 @@
   </footer>
 
   <script>
-    // Email nhận thông báo lead (chị Mơ đổi tại đây nếu cần)
+    // Email nhận lead (chị Mơ đổi tại đây nếu cần). Thu lead qua FormSubmit: gửi ngầm về hộp thư, không cần khách có app mail.
     var LEAD_EMAIL = "luuthimo9191@gmail.com";
-    document.getElementById('leadForm').addEventListener('submit', function(e){
-      e.preventDefault();
-      var ten = document.getElementById('ten').value.trim();
-      var lienhe = document.getElementById('lienhe').value.trim();
-      // Đo lường
-      window.dataLayer && window.dataLayer.push({event:'lead_submit', lead_type:'checklist-7-buoc'});
-      // Gửi thông báo lead về hộp thư của chị Mơ
-      var subject = encodeURIComponent('Lead mới - Checklist 7 bước: ' + ten);
-      var body = encodeURIComponent('Tên: ' + ten + '\nEmail/Zalo: ' + lienhe + '\nNguồn: trang Checklist 7 bước');
-      try { window.open('mailto:' + LEAD_EMAIL + '?subject=' + subject + '&body=' + body, '_blank'); } catch(err){}
-      // Hiện checklist ngay tại chỗ
+    var FORM_ENDPOINT = "https://formsubmit.co/ajax/" + LEAD_EMAIL;
+    var form = document.getElementById('leadForm');
+    function showSuccess(){
       document.getElementById('formCard').style.display = 'none';
       var s = document.getElementById('successBox');
       s.style.display = 'block';
       s.scrollIntoView({behavior:'smooth', block:'center'});
+    }
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      var ten = document.getElementById('ten').value.trim();
+      var lienhe = document.getElementById('lienhe').value.trim();
+      var btn = form.querySelector('.lp-btn');
+      btn.disabled = true; btn.textContent = 'Đang gửi…';
+      window.dataLayer && window.dataLayer.push({event:'lead_submit', lead_type:'checklist-7-buoc'});
+      fetch(FORM_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({
+          "Tên": ten,
+          "Email/Zalo": lienhe,
+          "Nguồn": "Trang Checklist 7 bước",
+          _subject: "Lead mới - Checklist 7 bước: " + ten,
+          _template: "table",
+          _captcha: "false"
+        })
+      })
+      .then(function(r){ return r.json(); })
+      .then(function(){ showSuccess(); })
+      .catch(function(){
+        // Dự phòng nếu mạng lỗi: mở email cho khách gửi tay
+        try { window.open('mailto:' + LEAD_EMAIL + '?subject=' + encodeURIComponent('Lead - Checklist: ' + ten) + '&body=' + encodeURIComponent('Tên: ' + ten + '\nEmail/Zalo: ' + lienhe), '_blank'); } catch(err){}
+        showSuccess();
+      });
     });
   </script>
 </body>
