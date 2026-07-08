@@ -40,6 +40,18 @@
     }
     .btn-dl:hover{ transform:translateY(-2px); box-shadow:0 12px 26px rgba(150,80,55,.34); text-decoration:none; }
     .btn-sub{ display:block; color:var(--muted); font-size:14px; margin-top:10px; }
+    /* Form thu email + số điện thoại trước khi tải */
+    .eb-form-card{ background:#fff; border:1px solid var(--line); border-radius:16px; box-shadow:0 6px 24px rgba(120,90,70,.10); padding:22px 22px; max-width:430px; }
+    .eb-form label{ display:block; font-size:14px; color:var(--muted); margin:12px 0 5px; }
+    .eb-form label:first-child{ margin-top:0; }
+    .eb-form input{ width:100%; height:46px; padding:0 14px; font-size:16px; border:1px solid var(--line); border-radius:10px; background:#fffdfb; color:var(--ink); box-sizing:border-box; }
+    .eb-form input:focus{ outline:none; border-color:var(--accent); box-shadow:0 0 0 3px rgba(181,101,74,.13); }
+    .eb-form-btn{ width:100%; margin-top:18px; border:none; cursor:pointer; font-family:inherit; }
+    .eb-form-btn:disabled{ opacity:.7; cursor:default; transform:none; }
+    .eb-scarcity{ background:#fbf3e4; border:1px solid #e7d3a8; border-radius:10px; padding:12px 15px; color:#7E2E20; font-size:14.5px; line-height:1.55; margin:16px 0 0; }
+    .eb-success{ background:#eef6ee; border:1px solid #cfe3cf; border-radius:16px; padding:24px 22px; max-width:430px; }
+    .eb-success p{ margin:0 0 14px; color:#2f6b39; font-weight:600; font-size:17px; }
+    .eb-reassure{ display:block; color:var(--muted); font-size:13px; margin-top:12px; line-height:1.6; }
     .eb-list{ list-style:none; padding:0; margin:14px 0 24px; }
     .eb-list li{ padding:7px 0 7px 30px; position:relative; color:#4a423b; font-size:17px; }
     .eb-list li::before{ content:"✓"; position:absolute; left:0; top:7px; color:var(--terra); font-weight:700; }
@@ -99,11 +111,26 @@
             <li>Cách <strong>tính dòng tiền</strong> bằng con số thật, tránh "tưởng lời mà lỗ"</li>
             <li>5 cái bẫy khiến người mới mất tiền — và kế hoạch 30 ngày đầu 0 đồng</li>
           </ul>
-          <a class="btn-dl" href="ebook-dong-tien-phong-tro-khu-cong-nghiep.pdf" download
-             onclick="window.dataLayer&&window.dataLayer.push({event:'download_ebook',ebook:'phong-tro-kcn'});">
-             ⬇️ Tải ebook miễn phí (PDF)
-          </a>
-          <span class="btn-sub">Tải trực tiếp, không cần đăng ký · Đọc trong ~20 phút</span>
+          <div class="eb-form-card" id="formCard">
+            <form class="eb-form" id="leadForm">
+              <label for="ten">Tên của bạn</label>
+              <input type="text" id="ten" name="ten" placeholder="Ví dụ: Nguyễn Thị Lan" required>
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" placeholder="email@gmail.com" required>
+              <label for="sdt">Số điện thoại</label>
+              <input type="tel" id="sdt" name="sdt" placeholder="09xx xxx xxx" required>
+              <button type="submit" class="btn-dl eb-form-btn">⬇️ Gửi & tải ebook miễn phí</button>
+            </form>
+            <p class="eb-scarcity">📌 Tôi chỉ nhận đồng hành với một số lượng khách nhất định mỗi tháng để đảm bảo tư vấn kỹ — để lại thông tin để tôi ưu tiên hỗ trợ bạn.</p>
+            <span class="eb-reassure">Miễn phí 100% · Đọc trong ~20 phút · Tôi không spam, bạn có thể ngừng nhận bất cứ lúc nào 💛</span>
+          </div>
+          <div class="eb-success" id="successBox" style="display:none;">
+            <p>💛 Cảm ơn bạn đã tin tưởng! Ebook của bạn đã sẵn sàng:</p>
+            <a class="btn-dl" id="dlLink" href="ebook-dong-tien-phong-tro-khu-cong-nghiep.pdf" download
+               onclick="window.dataLayer&&window.dataLayer.push({event:'download_ebook',ebook:'phong-tro-kcn'});">
+               ⬇️ Tải ebook miễn phí (PDF)
+            </a>
+          </div>
         </div>
         <div class="eb-mockup">
           <img src="ebook-3d.png" alt="Ebook Dòng tiền từ phòng trọ khu công nghiệp — Lưu Thị Mơ">
@@ -147,8 +174,8 @@
 
     <!-- CTA CUỐI -->
     <section class="eb-cta-band">
-      <a class="btn-dl" href="ebook-dong-tien-phong-tro-khu-cong-nghiep.pdf" download
-         onclick="window.dataLayer&&window.dataLayer.push({event:'download_ebook',ebook:'phong-tro-kcn',pos:'bottom'});">
+      <a class="btn-dl" id="ctaBottom" href="#formCard"
+         onclick="document.getElementById('leadForm')&&document.getElementById('formCard').style.display!=='none'&&document.getElementById('ten').focus();">
          ⬇️ Nhận ebook miễn phí ngay
       </a>
       <span class="btn-sub">Rồi đọc thêm các bài viết cùng chủ đề tại <a href="index.html#bai-viet">trang blog của tôi</a> 💛</span>
@@ -166,5 +193,53 @@
       <p class="footer-contact">Bạn có câu hỏi hay muốn đồng hành cùng tôi? <a href="mailto:luuthimo9191@gmail.com?subject=Toi%20muon%20ket%20noi%20voi%20chi%20Mo"><strong>Gửi email cho tôi: luuthimo9191@gmail.com</strong></a></p>
     </div>
   </footer>
+
+  <script>
+    // Thu email + số điện thoại trước khi tải ebook. Gửi ngầm về hộp thư qua FormSubmit; nếu mạng lỗi vẫn mở khóa link tải.
+    var LEAD_EMAIL = "luuthimo9191@gmail.com";
+    var FORM_ENDPOINT = "https://formsubmit.co/ajax/" + LEAD_EMAIL;
+    var PDF_URL = "ebook-dong-tien-phong-tro-khu-cong-nghiep.pdf";
+    var form = document.getElementById('leadForm');
+    function unlock(){
+      document.getElementById('formCard').style.display = 'none';
+      var s = document.getElementById('successBox');
+      s.style.display = 'block';
+      // Nút CTA cuối trang giờ tải trực tiếp
+      var cta = document.getElementById('ctaBottom');
+      if (cta){ cta.setAttribute('href', PDF_URL); cta.setAttribute('download',''); cta.onclick = null; }
+      s.scrollIntoView({behavior:'smooth', block:'center'});
+      // Tự động bấm link tải cho khách (giữ nguyên trang cảm ơn)
+      try { document.getElementById('dlLink').click(); } catch(err){}
+    }
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      var ten = document.getElementById('ten').value.trim();
+      var email = document.getElementById('email').value.trim();
+      var sdt = document.getElementById('sdt').value.trim();
+      var btn = form.querySelector('.eb-form-btn');
+      btn.disabled = true; btn.textContent = 'Đang gửi…';
+      window.dataLayer && window.dataLayer.push({event:'lead_submit', lead_type:'ebook-phong-tro-kcn'});
+      fetch(FORM_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({
+          "Tên": ten,
+          "Email": email,
+          "Số điện thoại": sdt,
+          "Nguồn": "Trang Ebook - Dòng tiền phòng trọ KCN",
+          _subject: "Lead mới - Ebook phòng trọ KCN: " + ten,
+          _template: "table",
+          _captcha: "false"
+        })
+      })
+      .then(function(r){ return r.json(); })
+      .then(function(){ unlock(); })
+      .catch(function(){
+        // Dự phòng nếu mạng lỗi: gửi tay qua email rồi vẫn mở khóa tải
+        try { window.open('mailto:' + LEAD_EMAIL + '?subject=' + encodeURIComponent('Lead - Ebook: ' + ten) + '&body=' + encodeURIComponent('Tên: ' + ten + '\nEmail: ' + email + '\nSố điện thoại: ' + sdt), '_blank'); } catch(err){}
+        unlock();
+      });
+    });
+  </script>
 </body>
 </html>
