@@ -61,6 +61,36 @@
     .lp-success h3{ font-family:"Times New Roman",Georgia,serif; font-size:24px; margin:0 0 10px; color:#2f6b39; }
     .lp-disclaimer{ color:var(--muted); font-size:13.5px; line-height:1.6; margin-top:26px; padding-top:18px; border-top:1px solid var(--line); }
     @media (max-width:600px){ .lp-hero h1{ font-size:29px; } .lp-benefits{ grid-template-columns:1fr; } .lp-form-card{ padding:22px 18px; } }
+    /* ===== Popup giữ chân khi khách định thoát (exit-intent) ===== */
+    .xip-overlay{ position:fixed; inset:0; z-index:9999; display:none; align-items:center; justify-content:center; padding:20px;
+      background:rgba(25,12,7,.62); backdrop-filter:blur(3px); -webkit-backdrop-filter:blur(3px); }
+    .xip-overlay.show{ display:flex; animation:xipFade .25s ease; }
+    @keyframes xipFade{ from{opacity:0} to{opacity:1} }
+    .xip-card{ position:relative; max-width:440px; width:100%; border-radius:20px; padding:34px 30px 28px;
+      background:linear-gradient(158deg,#5c2417 0%,#3c1610 80%); border:1px solid rgba(194,155,74,.5); color:#f3e6d8;
+      box-shadow:0 24px 60px rgba(0,0,0,.5), 0 0 40px rgba(194,155,74,.10) inset; animation:xipPop .3s cubic-bezier(.2,.9,.3,1.2); }
+    @keyframes xipPop{ from{transform:scale(.92) translateY(10px);opacity:0} to{transform:none;opacity:1} }
+    .xip-close{ position:absolute; top:14px; right:14px; width:34px; height:34px; border-radius:50%; border:none; cursor:pointer;
+      background:rgba(255,255,255,.08); color:#e9d9c6; font-size:17px; display:flex; align-items:center; justify-content:center; transition:background .15s; }
+    .xip-close:hover{ background:rgba(255,255,255,.18); }
+    .xip-badge{ display:inline-flex; align-items:center; gap:6px; background:linear-gradient(90deg,#d8ad57,#c29b4a); color:#3a1c0c;
+      font-weight:800; font-size:13px; padding:6px 14px; border-radius:999px; margin-bottom:16px; letter-spacing:.3px; }
+    .xip-card h2{ font-family:"Times New Roman",Georgia,serif; color:#fff; font-size:27px; line-height:1.2; margin:0 0 10px; }
+    .xip-sub{ color:#e7d3bf; opacity:.85; font-size:15px; margin:0 0 14px; line-height:1.5; }
+    .xip-body{ color:#f0e2d2; font-size:15.5px; line-height:1.6; margin:0 0 16px; }
+    .xip-body b{ color:#f2d493; }
+    .xip-highlight{ background:rgba(194,155,74,.14); border:1px solid rgba(194,155,74,.45); border-radius:12px;
+      padding:14px 16px; color:#f6e8c9; font-size:15px; line-height:1.5; margin:0 0 14px; }
+    .xip-highlight b{ color:#f2d493; }
+    .xip-scar{ color:#e6b98f; font-size:14px; font-style:italic; margin:0 0 16px; }
+    .xip-cta{ display:block; width:100%; text-align:center; cursor:pointer; border:none; font-family:inherit;
+      background:linear-gradient(100deg,#e0913f 0%,#c85a34 55%,#a6402e 100%); color:#fff; font-weight:800; font-size:18px;
+      padding:16px; border-radius:14px; box-shadow:0 12px 26px rgba(180,80,45,.4); transition:transform .15s, box-shadow .15s; }
+    .xip-cta:hover{ transform:translateY(-2px); box-shadow:0 16px 32px rgba(180,80,45,.5); }
+    .xip-dismiss{ display:block; text-align:center; margin:14px auto 0; background:none; border:none; cursor:pointer;
+      color:#d9c3ab; font-size:14px; text-decoration:underline; font-family:inherit; }
+    .xip-dismiss:hover{ color:#fff; }
+    @media (max-width:600px){ .xip-card{ padding:30px 22px 24px; } .xip-card h2{ font-size:23px; } }
   </style>
 </head>
 <body>
@@ -164,6 +194,63 @@
       <p class="footer-contact">Anh chị có câu hỏi về dự án? <a href="mailto:luuthimo9191@gmail.com?subject=Hoi%20ve%20du%20an%20Thuong%20Thang%20Central%20Park"><strong>Gửi email cho em: luuthimo9191@gmail.com</strong></a></p>
     </div>
   </footer>
+
+  <!-- ===== Popup giữ chân khi khách định thoát ===== -->
+  <div class="xip-overlay" id="xipOverlay" role="dialog" aria-modal="true" aria-labelledby="xipTitle">
+    <div class="xip-card">
+      <button class="xip-close" id="xipClose" aria-label="Đóng">✕</button>
+      <span class="xip-badge">🔔 Khoan đã</span>
+      <h2 id="xipTitle">Anh/chị chưa nhận bảng giá</h2>
+      <p class="xip-sub">Rời trang bây giờ, anh chị sẽ bỏ lỡ 3 thứ quan trọng nhất khi cân nhắc dự án.</p>
+      <p class="xip-body">Giá và <b>vị trí đẹp</b> ở Thường Thắng Central Park thay đổi theo tiến độ — lô đẹp thường hết trước. Có bảng giá trong tay, anh chị mới so sánh và quyết định đúng được.</p>
+      <div class="xip-highlight">🎁 Nhận miễn phí: <b>Bảng giá mới nhất</b> · <b>Sơ đồ vị trí đẹp còn lại</b> · <b>Lịch tham quan thực tế</b>.</div>
+      <p class="xip-scar">Em chỉ nhận số lượng khách nhất định mỗi tháng để tư vấn kỹ — để lại thông tin để em ưu tiên anh chị.</p>
+      <button class="xip-cta" id="xipCta">Nhận bảng giá miễn phí →</button>
+      <button class="xip-dismiss" id="xipDismiss">Để sau, tiếp tục xem</button>
+    </div>
+  </div>
+
+  <script>
+    // Popup giữ chân (exit-intent): bật khi khách có ý định rời trang, chỉ 1 lần/phiên.
+    (function(){
+      var overlay = document.getElementById('xipOverlay');
+      if(!overlay) return;
+      var LEAD = 'thuong-thang-central-park', KEY = 'xip_shown_' + LEAD, shown = false;
+      function fired(){ try{ return sessionStorage.getItem(KEY)==='1'; }catch(e){ return false; } }
+      function dl(a){ window.dataLayer && window.dataLayer.push({event:'exit_popup_'+a, lead_type:LEAD}); }
+      function open(){
+        if(shown || fired()) return;
+        var sb = document.getElementById('successBox');
+        if(sb && sb.style.display === 'block') return; // đã điền form xong thì thôi
+        shown = true; try{ sessionStorage.setItem(KEY,'1'); }catch(e){}
+        overlay.classList.add('show'); dl('show');
+      }
+      function close(){ overlay.classList.remove('show'); }
+      // Desktop: chuột rời lên đỉnh trình duyệt
+      document.addEventListener('mouseleave', function(e){ if(e.clientY <= 0) open(); });
+      // Mobile: vuốt lên nhanh (định thoát) hoặc sau 30 giây
+      if(window.matchMedia('(max-width:768px)').matches){
+        var lastY = window.pageYOffset;
+        window.addEventListener('scroll', function(){
+          var y = window.pageYOffset;
+          if(lastY - y > 60 && y > 150) open();
+          lastY = y;
+        }, {passive:true});
+        setTimeout(open, 30000);
+      }
+      document.getElementById('xipClose').addEventListener('click', function(){ close(); dl('dismiss'); });
+      document.getElementById('xipDismiss').addEventListener('click', function(){ close(); dl('dismiss'); });
+      overlay.addEventListener('click', function(e){ if(e.target === overlay){ close(); dl('dismiss'); } });
+      document.addEventListener('keydown', function(e){ if(e.key==='Escape' && overlay.classList.contains('show')){ close(); dl('dismiss'); } });
+      document.getElementById('xipCta').addEventListener('click', function(){
+        close(); dl('cta');
+        var card = document.getElementById('formCard');
+        if(card) card.scrollIntoView({behavior:'smooth', block:'center'});
+        var first = document.getElementById('ten');
+        if(first) setTimeout(function(){ try{ first.focus(); }catch(e){} }, 450);
+      });
+    })();
+  </script>
 
   <script>
     // Email nhận lead (chị Mơ đổi tại đây nếu cần). Thu lead qua FormSubmit: gửi ngầm về hộp thư, không cần khách có app mail.
