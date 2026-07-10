@@ -12,7 +12,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Hội chứng "mình không đủ giỏi" và cách tôi vẫn đi tiếp dù còn sợ — Lưu Thị Mơ</title>
   <meta name="description" content="Cảm giác 'mình không đủ giỏi, ai mình là mà dám chia sẻ' — hội chứng kẻ mạo danh. Một cựu công nhân may kể cách cô vẫn bước tiếp dù trong lòng vẫn run.">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css?v=2">
 </head>
 <body>
   <!-- Google Tag Manager (noscript) -->
@@ -92,5 +92,51 @@
       <p class="footer-contact">Bạn có câu hỏi hay muốn đồng hành cùng tôi? <a href="mailto:luuthimo9191@gmail.com?subject=Toi%20muon%20ket%20noi%20voi%20chi%20Mo"><strong>Gửi email cho tôi: luuthimo9191@gmail.com</strong></a></p>
     </div>
   </footer>
+  <!-- ===== Popup giữ chân khi khách định thoát ===== -->
+  <div class="xip-overlay" id="xipOverlay" role="dialog" aria-modal="true" aria-labelledby="xipTitle">
+    <div class="xip-card">
+      <button class="xip-close" id="xipClose" aria-label="Đóng">✕</button>
+      <span class="xip-badge">🎁 Quà tặng cho bạn</span>
+      <h2 id="xipTitle">Trước khi bạn rời đi…</h2>
+      <p class="xip-sub">Cho tôi gửi bạn một món quà nhỏ mang về.</p>
+      <p class="xip-body">Bạn đọc tới đây, hẳn trong lòng cũng đang muốn <b>tự tay bắt đầu một điều gì đó</b>. Tôi có sẵn tấm bản đồ cho bước đầu tiên — gói gọn trong một tờ checklist dễ làm.</p>
+      <div class="xip-highlight">🎁 <b>Checklist 7 bước bắt đầu kiếm thu nhập online</b> — cho người không rành công nghệ. Miễn phí 100%, xem được ngay.</div>
+      <p class="xip-scar">Chỉ mất 30 giây để nhận — rồi bắt đầu ngay hôm nay.</p>
+      <a class="xip-cta" id="xipCta" href="checklist-7-buoc.html">Nhận Checklist miễn phí →</a>
+      <button class="xip-dismiss" id="xipDismiss">Để sau, tiếp tục đọc</button>
+    </div>
+  </div>
+
+  <script>
+    // Popup giữ chân (exit-intent) cho trang nội dung: bật khi khách định rời trang, chỉ 1 lần/phiên.
+    (function(){
+      var overlay = document.getElementById('xipOverlay');
+      if(!overlay) return;
+      var LEAD = 'content-exit', KEY = 'xip_shown_' + LEAD, shown = false;
+      function fired(){ try{ return sessionStorage.getItem(KEY)==='1'; }catch(e){ return false; } }
+      function dl(a){ window.dataLayer && window.dataLayer.push({event:'exit_popup_'+a, lead_type:LEAD, page:location.pathname}); }
+      function open(){
+        if(shown || fired()) return;
+        shown = true; try{ sessionStorage.setItem(KEY,'1'); }catch(e){}
+        overlay.classList.add('show'); dl('show');
+      }
+      function close(){ overlay.classList.remove('show'); }
+      document.addEventListener('mouseleave', function(e){ if(e.clientY <= 0) open(); });
+      if(window.matchMedia('(max-width:768px)').matches){
+        var lastY = window.pageYOffset;
+        window.addEventListener('scroll', function(){
+          var y = window.pageYOffset;
+          if(lastY - y > 60 && y > 150) open();
+          lastY = y;
+        }, {passive:true});
+        setTimeout(open, 35000);
+      }
+      document.getElementById('xipClose').addEventListener('click', function(){ close(); dl('dismiss'); });
+      document.getElementById('xipDismiss').addEventListener('click', function(){ close(); dl('dismiss'); });
+      overlay.addEventListener('click', function(e){ if(e.target === overlay){ close(); dl('dismiss'); } });
+      document.addEventListener('keydown', function(e){ if(e.key==='Escape' && overlay.classList.contains('show')){ close(); dl('dismiss'); } });
+      document.getElementById('xipCta').addEventListener('click', function(){ dl('cta'); });
+    })();
+  </script>
 </body>
 </html>

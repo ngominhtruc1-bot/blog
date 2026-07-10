@@ -161,3 +161,34 @@ a:hover { text-decoration: underline; }
   .post-card { padding: 22px; }
   .nav a { margin-left: 14px; }
 }
+
+/* ===== Popup giữ chân khi khách định thoát (exit-intent) — dùng chung mọi trang ===== */
+.xip-overlay{ position:fixed; inset:0; z-index:9999; display:none; align-items:center; justify-content:center; padding:20px;
+  background:rgba(25,12,7,.62); backdrop-filter:blur(3px); -webkit-backdrop-filter:blur(3px); }
+.xip-overlay.show{ display:flex; animation:xipFade .25s ease; }
+@keyframes xipFade{ from{opacity:0} to{opacity:1} }
+.xip-card{ position:relative; max-width:440px; width:100%; border-radius:20px; padding:34px 30px 28px;
+  background:linear-gradient(158deg,#5c2417 0%,#3c1610 80%); border:1px solid rgba(194,155,74,.5); color:#f3e6d8;
+  box-shadow:0 24px 60px rgba(0,0,0,.5), 0 0 40px rgba(194,155,74,.10) inset; animation:xipPop .3s cubic-bezier(.2,.9,.3,1.2); }
+@keyframes xipPop{ from{transform:scale(.92) translateY(10px);opacity:0} to{transform:none;opacity:1} }
+.xip-close{ position:absolute; top:14px; right:14px; width:34px; height:34px; border-radius:50%; border:none; cursor:pointer;
+  background:rgba(255,255,255,.08); color:#e9d9c6; font-size:17px; display:flex; align-items:center; justify-content:center; transition:background .15s; }
+.xip-close:hover{ background:rgba(255,255,255,.18); }
+.xip-badge{ display:inline-flex; align-items:center; gap:6px; background:linear-gradient(90deg,#d8ad57,#c29b4a); color:#3a1c0c;
+  font-weight:800; font-size:13px; padding:6px 14px; border-radius:999px; margin-bottom:16px; letter-spacing:.3px; }
+.xip-card h2{ font-family:"Times New Roman",Georgia,serif; color:#fff; font-size:27px; line-height:1.2; margin:0 0 10px; }
+.xip-sub{ color:#e7d3bf; opacity:.85; font-size:15px; margin:0 0 14px; line-height:1.5; }
+.xip-body{ color:#f0e2d2; font-size:15.5px; line-height:1.6; margin:0 0 16px; }
+.xip-body b{ color:#f2d493; }
+.xip-highlight{ background:rgba(194,155,74,.14); border:1px solid rgba(194,155,74,.45); border-radius:12px;
+  padding:14px 16px; color:#f6e8c9; font-size:15px; line-height:1.5; margin:0 0 14px; }
+.xip-highlight b{ color:#f2d493; }
+.xip-scar{ color:#e6b98f; font-size:14px; font-style:italic; margin:0 0 16px; }
+.xip-cta{ display:block; width:100%; text-align:center; cursor:pointer; border:none; font-family:inherit; text-decoration:none;
+  background:linear-gradient(100deg,#e0913f 0%,#c85a34 55%,#a6402e 100%); color:#fff !important; font-weight:800; font-size:18px;
+  padding:16px; border-radius:14px; box-shadow:0 12px 26px rgba(180,80,45,.4); transition:transform .15s, box-shadow .15s; }
+.xip-cta:hover{ transform:translateY(-2px); box-shadow:0 16px 32px rgba(180,80,45,.5); text-decoration:none; }
+.xip-dismiss{ display:block; text-align:center; margin:14px auto 0; background:none; border:none; cursor:pointer;
+  color:#d9c3ab; font-size:14px; text-decoration:underline; font-family:inherit; }
+.xip-dismiss:hover{ color:#fff; }
+@media (max-width:600px){ .xip-card{ padding:30px 22px 24px; } .xip-card h2{ font-size:23px; } }
