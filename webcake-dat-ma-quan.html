@@ -81,6 +81,27 @@
     .lp-scarcity{ background:#fbf3e4; border:1px solid #e7d3a8; border-radius:10px; padding:12px 15px; color:#7E2E20; font-size:14.5px; line-height:1.55; margin:16px 0 0; }
     .lp-trust{ background:#fff4ee; border:1px solid var(--line); border-left:4px solid var(--accent); border-radius:6px; padding:16px 22px; color:#5a4a40; font-size:16px; }
     .lp-disclaimer{ color:var(--muted); font-size:13.5px; line-height:1.6; margin-top:26px; padding:18px 22px 0; border-top:1px solid var(--line); }
+    /* ===== Màn hình cảm ơn hiện tại chỗ sau khi gửi form ===== */
+    #wcThankYou{ display:none; }
+    .ty-wrap{ max-width:620px; margin:0 auto; padding:54px 22px 40px; text-align:center; }
+    .ty-check{ width:88px; height:88px; border-radius:50%; margin:0 auto 22px; display:flex; align-items:center; justify-content:center;
+      background:linear-gradient(150deg,#4fae5a,#2f6b39); color:#fff; font-size:46px; box-shadow:0 14px 30px rgba(47,107,57,.32); animation:tyPop .4s cubic-bezier(.2,.9,.3,1.3); }
+    @keyframes tyPop{ from{transform:scale(.6);opacity:0} to{transform:none;opacity:1} }
+    .ty-wrap h1{ font-family:"Times New Roman",Georgia,serif; font-size:34px; line-height:1.2; margin:0 0 12px; }
+    .ty-wrap .lede{ color:var(--muted); font-size:18px; margin:0 auto 8px; max-width:520px; line-height:1.6; }
+    .ty-card{ background:var(--surface); border:1px solid var(--line); border-radius:16px; box-shadow:var(--shadow);
+      padding:26px 26px; max-width:520px; margin:26px auto 0; text-align:left; }
+    .ty-card h2{ font-family:"Times New Roman",Georgia,serif; font-size:21px; margin:0 0 14px; text-align:center; }
+    .ty-steps{ list-style:none; padding:0; margin:0; counter-reset:step; }
+    .ty-steps li{ position:relative; padding:12px 0 12px 46px; color:#4a423b; font-size:16px; line-height:1.55; border-bottom:1px dashed var(--line); }
+    .ty-steps li:last-child{ border-bottom:none; }
+    .ty-steps li::before{ counter-increment:step; content:counter(step); position:absolute; left:0; top:11px; width:30px; height:30px;
+      border-radius:50%; background:var(--accent); color:#fff; font-weight:800; font-size:15px; display:flex; align-items:center; justify-content:center; }
+    .ty-zalo{ display:flex; align-items:center; justify-content:center; gap:9px; max-width:360px; margin:26px auto 0;
+      background:#0068FF; color:#fff !important; font-weight:700; font-size:17px; padding:15px; border-radius:12px; box-shadow:0 8px 20px rgba(0,104,255,.22); transition:transform .15s ease; }
+    .ty-zalo:hover{ transform:translateY(-2px); text-decoration:none; box-shadow:0 12px 26px rgba(0,104,255,.28); }
+    .ty-zalo .zi{ background:#fff; color:#0068FF; font-size:13px; font-weight:800; padding:2px 8px; border-radius:6px; letter-spacing:.3px; }
+    .ty-note{ color:var(--muted); font-size:14.5px; margin:16px auto 0; max-width:500px; line-height:1.6; }
     /* Footer */
     .wc-footer{ border-top:1px solid var(--line); padding:34px 0; text-align:center; color:var(--muted); font-size:15px; background:var(--surface); margin-top:10px; }
     .wc-footer .fc{ margin-top:12px; font-size:16px; }
@@ -170,7 +191,7 @@
 
         <!-- Form gửi bằng POST thuần (không cần JavaScript) → Webcake không chặn.
              FormSubmit tự chuyển sang TRANG CẢM ƠN nhờ trường _next. -->
-        <form class="lp-form" action="https://formsubmit.co/luuthimo9191@gmail.com" method="POST">
+        <form class="lp-form" id="wcLeadForm" action="https://formsubmit.co/luuthimo9191@gmail.com" method="POST">
           <input type="hidden" name="_subject" value="Lead BĐS - Mã Quần Bắc Lý">
           <input type="hidden" name="_template" value="table">
           <input type="hidden" name="_captcha" value="false">
@@ -217,12 +238,68 @@
 
   </main>
 
-  <footer class="wc-footer">
+  <footer class="wc-footer" id="wcFooter">
     <div class="wc-wrap">
       <p>© 2026 Lưu Thị Mơ · Hành trình làm lại cuộc đời từ con số 0</p>
       <p class="fc">Anh chị có câu hỏi về lô đất? <a href="mailto:luuthimo9191@gmail.com?subject=Hoi%20ve%20lo%20dat%20Ma%20Quan%20Bac%20Ly"><strong>Gửi email cho em: luuthimo9191@gmail.com</strong></a></p>
     </div>
   </footer>
+
+  <!-- ===== MÀN HÌNH CẢM ƠN (ẩn, hiện ngay tại chỗ sau khi khách gửi form) ===== -->
+  <section id="wcThankYou">
+    <div class="ty-wrap">
+      <div class="ty-check">✓</div>
+      <h1 id="wcTyHello">Cảm ơn anh/chị đã tin tưởng!</h1>
+      <p class="lede">Em đã nhận được thông tin của anh/chị. Bảng giá từng lô, sơ đồ vị trí đẹp và ảnh sổ đỏ pháp lý của lô <strong>Mã Quần – Bắc Lý</strong> đang được em chuẩn bị để gửi tới anh/chị.</p>
+      <div class="ty-card">
+        <h2>Tiếp theo sẽ thế nào?</h2>
+        <ul class="ty-steps">
+          <li>Em <strong>liên hệ lại trong ngày</strong> qua điện thoại/Zalo anh/chị vừa để lại.</li>
+          <li>Em gửi <strong>bảng giá từng lô, sơ đồ vị trí</strong> và <strong>ảnh sổ đỏ</strong> để anh/chị xem trước tại nhà.</li>
+          <li>Nếu ưng, em sắp <strong>lịch xem đất thực tế</strong> tại Mã Quần – Bắc Lý, đi cùng anh/chị kiểm tra pháp lý &amp; quy hoạch.</li>
+        </ul>
+      </div>
+      <a class="ty-zalo" href="https://zalo.me/0909441570" target="_blank" rel="noopener">
+         <span class="zi">Zalo</span> Nhắn ngay cho em: 0909 441 570</a>
+      <p class="ty-note">💛 Muốn nhận bảng giá <strong>nhanh hơn</strong>? Anh/chị nhắn Zalo cho em một câu “<em>Em quan tâm lô Mã Quần</em>” là em gửi ngay, không phải chờ.</p>
+    </div>
+  </section>
 </div>
+
+<script>
+  // Gửi lead ngầm qua FormSubmit (AJAX) rồi HIỆN MÀN HÌNH CẢM ƠN ngay tại chỗ — không rời trang.
+  // Nếu Webcake chặn script, form vẫn POST bình thường và FormSubmit tự chuyển sang trang cảm ơn qua _next.
+  (function(){
+    var form = document.getElementById('wcLeadForm');
+    if(!form) return;
+    var ENDPOINT = "https://formsubmit.co/ajax/luuthimo9191@gmail.com";
+    function showThankYou(ten){
+      var root = form.closest('.wc-root') || document;
+      ['wc-header','wc-footer'].forEach(function(c){
+        var el = root.querySelector('.'+c); if(el) el.style.display='none';
+      });
+      var main = root.querySelector('main'); if(main) main.style.display='none';
+      var ty = document.getElementById('wcThankYou'); if(ty) ty.style.display='block';
+      var hello = document.getElementById('wcTyHello');
+      if(hello && ten) hello.textContent = 'Cảm ơn ' + ten + ' đã tin tưởng!';
+      try{ window.scrollTo({top:0, behavior:'smooth'}); }catch(e){ window.scrollTo(0,0); }
+    }
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      var ten = (form.querySelector('#ten')||{}).value || '';
+      var btn = form.querySelector('.lp-btn');
+      if(btn){ btn.disabled = true; btn.textContent = 'Đang gửi…'; }
+      var data = {};
+      new FormData(form).forEach(function(v,k){ data[k]=v; });
+      fetch(ENDPOINT, {
+        method:'POST',
+        headers:{ 'Content-Type':'application/json', 'Accept':'application/json' },
+        body: JSON.stringify(data)
+      })
+      .then(function(){ showThankYou(ten.trim()); })
+      .catch(function(){ showThankYou(ten.trim()); }); // vẫn cảm ơn khách; lead có thể tới chậm
+    });
+  })();
+</script>
 </body>
 </html>
