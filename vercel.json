@@ -1,0 +1,14 @@
+{
+  "rewrites": [
+    {
+      "source": "/",
+      "has": [{ "type": "host", "value": "dat.luuthimo.com" }],
+      "destination": "/dat-ngoc-tan/index.html"
+    },
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "dat.luuthimo.com" }],
+      "destination": "/dat-ngoc-tan/:path*"
+    }
+  ]
+}
