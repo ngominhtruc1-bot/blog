@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://blog-rho-beryl-97.vercel.app/sitemap.xml
